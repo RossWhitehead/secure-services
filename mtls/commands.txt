@@ -1,0 +1,22 @@
+# Gen CA private key and cert
+opensslreq -new -x509 -days 365 -keyout ca-key.pem -out ca-crt.pem
+
+# Gen server private key
+openssl genrsa -out server-key.pem 4096
+
+# Gen server CSR
+# CN: localhost
+openssl req -new -sha256 -key server-key.pem -out server-csr.pem
+
+# Process the server CSR, generating server certificate
+openssl x509 -req -days 365 -in server-csr.pem -CA ca-crt.pem -CAkey ca-key.pem -CAcreateserial -out server-crt.pem
+
+# Gen client private key
+openssl genrsa -out client-key.pem 4096
+
+# Gen client CSR
+# CN: localhost
+openssl req -new -sha256 -key client-key.pem -out client-csr.pem
+
+# Process the client CSR, generating client certificate
+openssl x509 -req -days 365 -in client-csr.pem -CA ca-crt.pem -CAkey ca-key.pem -CAcreateserial -out client-crt.pem
