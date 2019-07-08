@@ -1,2 +1,2 @@
-# ssl
-Playing around with security
+# secure-services
+Playing around with securing services
