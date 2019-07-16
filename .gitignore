@@ -90,3 +90,4 @@ typings/
 # Remove keys and certs
 *.pem
 *.srl
+root/
