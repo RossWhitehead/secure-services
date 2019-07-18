@@ -60,5 +60,9 @@ Performs the the following -
 ### Create Client/Server Cert
 Creates key and cert for a client or service based on an intermediary CA
 ```
-bash create-cert.sh <ica name> <client/server name>
+bash create-client-cert.sh <ica name> <client name>
 ```
+```
+bash create-server-cert.sh <ica name> <server name>
+```
+The scripts are identical apart from the extension used when generating the cert: ```-extensions usr_cert``` which associates the clientAuth extended key usage; ```-extensions server_cert``` which associates the serverAuth extended key usage attribute to the certificate.
