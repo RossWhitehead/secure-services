@@ -12,11 +12,11 @@ echo 1000 > $DIR/serial
 
 # Gen root private key
 # 4096 bits for keys
-openssl genrsa -aes256 -out $DIR/private/ca-key.pem 4096
+openssl genrsa -aes256 -out $DIR/private/ca.key.pem 4096
 
 # Gen root cert
 # Long lived, 7300 days
 openssl req -config ca-openssl.conf \
-    -key $DIR/private/ca-key.pem \
+    -key $DIR/private/ca.key.pem \
     -new -x509 -days 7300 -sha256 -extensions v3_ca \
-    -out $DIR/certs/ca-cert.pem
+    -out $DIR/certs/ca.cert.pem

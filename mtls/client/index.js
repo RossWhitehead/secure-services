@@ -4,10 +4,14 @@ var https = require('https')
 var options = {
     host: 'localhost',
     port: 4433,
-    key: fs.readFileSync('certs/client-key.pem'),
-    cert: fs.readFileSync('certs/client-crt.pem'),
-    ca: fs.readFileSync('certs/ca-crt.pem'),
+    key: fs.readFileSync('certs/client1.key.pem'),
+    cert: fs.readFileSync('certs/client1.cert.pem'),
+    ca: fs.readFileSync('certs/ica-chain.cert.pem'),
+    passphrase: 'goodlife'
 }
+
+// A fudge to ignore hostname cert errors when service is running on localhost
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0
 
 var req = https.request(options, function (res) {
     console.log("statusCode: ", res.statusCode)

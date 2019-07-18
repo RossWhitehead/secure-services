@@ -5,29 +5,28 @@ var https = require('https')
 var app = express()
 
 var options = {
-    key: fs.readFileSync('certs/server-key.pem'),
-    cert: fs.readFileSync('certs/server-crt.pem'),
-    ca: fs.readFileSync('certs/ca-crt.pem'), 
-    requestCert: true,                  
-    rejectUnauthorized: false           
+    key: fs.readFileSync(__dirname + '/certs/ica.key.pem'),
+    cert: fs.readFileSync(__dirname + '/certs/ica.cert.pem'),
+    ca: fs.readFileSync(__dirname + '/certs/ica-chain.cert.pem'),
+    requestCert: true,
+    rejectUnauthorized: false,
+    passphrase: 'goodlife'
 }
 
-app.use(function (req, res, next) {
-    if (!req.client.authorized) {
-        return res.status(401).send('User is not authorized')
-    }
-
-    var cert = req.socket.getPeerCertificate()
-    if (cert.subject) {
-        console.log(cert.subject.CN)
-    }
-    next()
- })
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
 app.use(function (req, res, next) {
-    res.writeHead(200)
-    res.end("hello world\n")
-    next()
+    const cert = req.connection.getPeerCertificate()
+    if (req.client.authorized) {
+        res.send(`Hello ${cert.subject.CN}, your certificate was issued by ${cert.issuer.CN}!`)
+        next()
+    } else if (cert.subject) {
+        res.status(403)
+            .send(`Sorry ${cert.subject.CN}, certificates from ${cert.issuer.CN} are not welcome here.`)
+    } else {
+        res.status(401)
+            .send(`Sorry, but you need to provide a client certificate to continue.`)
+    }
 })
 
 var listener = https.createServer(options, app).listen(4433, function () {
