@@ -49,7 +49,7 @@ Performs the the following -
 * Generate a intermediate CA certificate signing request
     * csr/ica.csr.pem
     * Utilises defaults from ica-openssl.conf 
-        * The statement ```export ICA_DIR=$IDIR``` is required to set the CA_default.dir value in the ica-openssl.conf file to the /<ica name> directory.
+        * The statement ```export ICA_DIR=$IDIR``` is required to set the CA_default.dir value in the ica-openssl.conf file to the root/ca/ica/\<ica name> directory.
 * Generate a intermedate CA cert
     * certs/ica.cert.pem 
     * Long lived, valid for 3650 days.
@@ -65,9 +65,9 @@ bash create-client-cert.sh <ica name> <client name>
 ```
 bash create-server-cert.sh <ica name> <server name>
 ```
-The scripts are identical apart from the extensions added when generating the cert: ```-extensions usr_cert``` adds the clientAuth extended key extension; ```-extensions server_cert``` adds the serverAuth extended key extension to the certificate.
+The scripts are identical apart from the extensions added when generating the cert: ```-extensions usr_cert``` adds the clientAuth extended key extension; ```-extensions server_cert``` adds the serverAuth extended key.
 
-Performs the the following (substitite client for server name where appropriate) -
+Performs the the following (substitute client for server name where appropriate) -
 * Adds all items to the root/ca/ica/\<ica name> directory
 * Generate a server private key
     * private/\<server name>.key.pem
@@ -75,8 +75,8 @@ Performs the the following (substitite client for server name where appropriate)
 * Generate a server certificate signing request
     * csr/\<server name>.csr.pem
     * Utilises defaults from ica-openssl.conf 
-        * The statement ```export ICA_DIR=$IDIR``` is required to set the CA_default.dir value in the ica-openssl.conf file to the /<ica name> directory.
+        * The statement ```export ICA_DIR=$IDIR``` is required to set the CA_default.dir value in the ica-openssl.conf file to the root/ca/ica/\<ica name> directory.
 * Generate a server cert
     * certs/\<server name>.cert.pem 
     * Short lived, valid for 365 days.
-    * Utilises defaults Utilises defaults from ica-openssl.conf 
+    * Utilises defaults from ica-openssl.conf 
