@@ -31,12 +31,10 @@ bash create-ica.sh <ica name>
 ```
 Performs the the following -
 * Creates a root/ca/ica/\<ica name> directory
-* 
----
-*Note*
 
+Note.
 The statement ```export ICA_DIR=$IDIR``` is required to set the CA_default.dir value in the ica-openssl.conf file to the /<ica name> directory.
----
+
 
 ### Create Client/Server Cert
 Creates key and cert for a client or service based on an intermediary CA
