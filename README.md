@@ -11,7 +11,7 @@ Creates key and cert for a root CA
 ```
 bash create-ca.sh
 ```
-Performs the the following -
+Performs the the following:
 * Creates a root/ca directory
 * Creates a CA database, used to track certificates
     * index.txt and serial files
@@ -23,6 +23,16 @@ Performs the the following -
     * certs/ca.cert.pem 
     * Long lived, valid for 7300 days.
     * Utilises defaults from ca-openssl.conf
+
+#### Verify CA cert
+```
+openssl x509 -noout -text -in root/ca/certs/ca.cert.pem
+```
+Of note:
+* ```Signiture algorithm``` is sha256WithRSAEncryption
+* ```Validity``` is for 20 years
+* ```Public key``` is 4096 bit
+* Cert is self-signed so ```Subject``` and ```Issuer``` are identical
 
 ### Create ICA
 Creates key and cert for an intermediary CA, based on the aforementioned CA
