@@ -99,7 +99,7 @@ openssl x509 -noout -text \
 ```
 Of note:
 * ```Signiture algorithm``` is sha256WithRSAEncryption
-* ```Validity``` is for 375 years
+* ```Validity``` is for 375 days
 * ```Public key``` is 2048 bit
 * ```Issuer``` is the ICA
 * ```X509v3 Extended Key Usage``` equals TLS Web Client Authentication or TLS Web Server Authentication
