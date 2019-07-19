@@ -10,7 +10,7 @@ var options = {
     ca: fs.readFileSync(__dirname + '/certs/ica-chain.cert.pem'),
     requestCert: true,
     rejectUnauthorized: false,
-    passphrase: 'goodlife'
+    passphrase: '****'
 }
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
