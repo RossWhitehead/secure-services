@@ -7,7 +7,7 @@ var options = {
     key: fs.readFileSync('certs/client1.key.pem'),
     cert: fs.readFileSync('certs/client1.cert.pem'),
     ca: fs.readFileSync('certs/ica-chain.cert.pem'),
-    passphrase: 'goodlife'
+    passphrase: '****'
 }
 
 // A fudge to ignore hostname cert errors when service is running on localhost
