@@ -57,6 +57,17 @@ Performs the the following -
 * Creates a intermediate CA cert chain
     * ica-chain.cert.pem
 
+#### Verify ICA cert
+```
+openssl x509 -noout -text \
+    -in root/ca/ica/<ica name>/certs/ica.cert.pem
+```
+Of note:
+* ```Signiture algorithm``` is sha256WithRSAEncryption
+* ```Validity``` is for 10 years
+* ```Public key``` is 4096 bit
+* ```Issuer``` is the CA
+
 ### Create Client/Server Cert
 Creates key and cert for a client or service based on an intermediary CA
 ```
@@ -78,5 +89,17 @@ Performs the the following (substitute client for server name where appropriate)
         * The statement ```export ICA_DIR=$IDIR``` is required to set the CA_default.dir value in the ica-openssl.conf file to the root/ca/ica/\<ica name> directory.
 * Generate a server cert
     * certs/\<server name>.cert.pem 
-    * Short lived, valid for 365 days.
+    * Short lived, valid for 375 days (1 year + 10 days grace).
     * Utilises defaults from ica-openssl.conf 
+
+#### Verify client/server cert
+```
+openssl x509 -noout -text \
+    -in root/ca/ica/<ica name>/certs/<service name>.cert.pem
+```
+Of note:
+* ```Signiture algorithm``` is sha256WithRSAEncryption
+* ```Validity``` is for 375 years
+* ```Public key``` is 2048 bit
+* ```Issuer``` is the ICA
+* ```X509v3 Extended Key Usage``` equals TLS Web Client Authentication or TLS Web Server Authentication
