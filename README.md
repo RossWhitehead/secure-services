@@ -103,3 +103,17 @@ Of note:
 * ```Public key``` is 2048 bit
 * ```Issuer``` is the ICA
 * ```X509v3 Extended Key Usage``` equals TLS Web Client Authentication or TLS Web Server Authentication
+
+### Renewing client/server cert
+To ensure minimal disruption in service it is convenient to be able to renew a certificate without having to revoke the existing certificate, whether it be expired or not. 
+
+Renewing a certificate involves generating a new CSR for an existing subject, (specifically DN), and then processing the request. There is some debate as to whether the existing private key should be used for cerfificate renewal or whether a new one should be generated. If you are happy to process a new private key then the ```create-client-cert.sh``` and ```create-server-cert.sh``` scripts can be used to renew a certificate.
+
+To enable this I have added the ```unique_subject=no``` attribute to the ica-openssl.conf file.
+
+Without this attribute, the certficate renewal would fail with the following error:
+
+```
+failed to update database
+TXT_DB error number 2
+```
